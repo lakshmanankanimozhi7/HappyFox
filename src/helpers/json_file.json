@@ -1,0 +1,15 @@
+{
+  
+  "status_Name": "Issue created",
+  "status_description": "Status when a new issue ticket is created in HappyFox",
+  "Priority_Name": "Assistance required",
+  "priority_description": "Priority of the newly created tickets",
+ 
+  "agent_user_name": "interview_agent",
+  "agent_password": "Interview@123",
+  "ticket_subject" : "Test Subject",
+  "ticket_message" : "Test message",
+  "ticket_full_name": "Kanimozhi",
+  "ticket_email" : "lakshmanankanimozhi7@gmail.com",
+  "ticket_phone_number" : "1234567890"
+}
