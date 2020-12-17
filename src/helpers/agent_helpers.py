@@ -31,6 +31,7 @@ class AgentHelpers(BaseTest):
 
     def click_login_button(self):
         self.agent_page.click(self.agent_page.agent_login_button)
+        self.agent_page.wait(5)
 
     """Read json file"""
 
@@ -42,25 +43,24 @@ class AgentHelpers(BaseTest):
     """hover to manage"""
 
     def hover_to_options(self):
-        time.sleep(10)
         self.agent_page.wait_for_presence(self.agent_page.ticket,timeout=10)
-        time.sleep(10)
-        self.agent_page.click(self.agent_page.ticket)
-        time.sleep(10)
+        self.agent_page.wait(5)
+        self.agent_page.click(self.agent_page.ticket,timeout=10,max_retries=3)
+        self.agent_page.wait(2)
 
     """select statuses option from manage"""
 
     def select_statuses_option(self):
         self.agent_page.scroll_to_element(self.agent_page.statuses)
         self.agent_page.click(self.agent_page.statuses)
-        time.sleep(10)
+        self.agent_page.wait(2)
 
     """select Priorities option from manage"""
 
     def select_priorities_option(self):
         self.agent_page.scroll_to_element(self.agent_page.priorities)
         self.agent_page.click(self.agent_page.priorities)
-        time.sleep(10)
+        self.agent_page.wait(2)
 
     """Click add status symbol"""
 
@@ -81,7 +81,7 @@ class AgentHelpers(BaseTest):
 
     def click_add_status_button(self):
         self.agent_page.click(self.agent_page.add_status_button)
-        time.sleep(5)
+        self.agent_page.wait(2)
 
         try:
             a = self.agent_page.is_element_present(self.agent_page.duplicate_status_or_priority_name_error)
@@ -110,7 +110,7 @@ class AgentHelpers(BaseTest):
 
     def click_add_priority_button(self):
         self.agent_page.click(self.agent_page.add_priority_button)
-        time.sleep(5)
+        self.agent_page.wait(2)
         try:
             a = self.agent_page.is_element_present(self.agent_page.duplicate_status_or_priority_name_error)
             logging.error("Trying to create priority with duplicate name")
@@ -141,7 +141,7 @@ class AgentHelpers(BaseTest):
 
     def click_delete_button(self):
         self.agent_page.click(self.agent_page.delete_button)
-        time.sleep(2)
+        self.agent_page.wait(2)
 
     """select the priority by name"""
 
@@ -168,7 +168,7 @@ class AgentHelpers(BaseTest):
             if status == status_name.upper():
                 element = self.agent_page.make_status_as_default(num=x)
                 self.agent_page.click_hidden_element(element[1])
-                time.sleep(5)
+                self.agent_page.wait(2)
                 break
 
     """Make priority as default"""
@@ -179,7 +179,7 @@ class AgentHelpers(BaseTest):
             if priority == priority_name:
                 element = self.agent_page.make_priority_as_default(num=x)
                 self.agent_page.click_hidden_element(element[1])
-                time.sleep(5)
+                self.agent_page.wait(2)
                 break
 
     """check priority of the ticket"""
@@ -212,15 +212,12 @@ class AgentHelpers(BaseTest):
     """ Click apply button"""
 
     def click_apply_button(self):
-        time.sleep(5)
         self.agent_page.click(self.agent_page.apply_button)
-        time.sleep(5)
 
     """ Click add reply button"""
 
     def click_add_reply_button(self):
         self.agent_page.click(self.agent_page.add_reply)
-        time.sleep(5)
 
     """Select ticket"""
     def select_ticket(self):
@@ -311,3 +308,7 @@ class AgentHelpers(BaseTest):
     """Select Ticket option"""
     def select_tickets_from_options(self):
         self.agent_page.click(self.agent_page.tickets_from_options)
+
+    """Wait until success message not present"""
+    def priority_or_status_deleted_success_message_not_present(self):
+        self.agent_page.wait_for_element_not_present(self.agent_page.priority_or_status_deleted_success_message)

@@ -58,3 +58,4 @@ class SupportCenterHelpers(BaseTest):
 
     def click_create_ticket_button(self):
         self.support_page.click(self.support_page.create_ticket_button)
+        time.sleep(3)

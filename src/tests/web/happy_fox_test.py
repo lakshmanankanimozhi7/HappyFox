@@ -1,7 +1,6 @@
 from src.helpers.agent_helpers import AgentHelpers
 from src.helpers.support_center_helpers import SupportCenterHelpers
 import pytest
-import time
 import logging
 from src.tests.base_test import BaseTest
 from src.pages.base_page import BasePage
@@ -40,7 +39,6 @@ class HappyFoxTests(BaseTest):
 
         # Step4- Click login button
         agent_helper.click_login_button()
-        base_page.wait(10)
         logging.info("Logged into the Agent portal")
 
         # Step5 - Navigate to options and create new status
@@ -77,6 +75,7 @@ class HappyFoxTests(BaseTest):
         logging.info("Deleted the created Status")
 
         # delete the created priority
+        agent_helper.priority_or_status_deleted_success_message_not_present()
         agent_helper.hover_to_options()
         agent_helper.select_priorities_option()
         agent_helper.select_priority_by_name_or_check_priority_on_priority_page(priority_name=data["Priority_Name"])
@@ -158,12 +157,11 @@ class HappyFoxTests(BaseTest):
         logging.info("visit support center page and create ticket")
         support_helper.enter_ticket_subject(data["ticket_subject"])
         support_helper.enter_ticket_message(data["ticket_message"])
-        support_helper.attach_screenshot(file_path='./src/helpers/sample_screenshot.PNG')
+        support_helper.attach_screenshot(file_path='C:/Users/HP/PycharmProjects/HappyFox/src/helpers/sample_screenshot.PNG')
         support_helper.enter_name(data["ticket_full_name"])
         support_helper.enter_mail(data["ticket_email"])
         support_helper.enter_phone_number(data["ticket_phone_number"])
         support_helper.click_create_ticket_button()
-        time.sleep(3)
         logging.info("Ticket created successfully")
 
 
@@ -221,6 +219,7 @@ class HappyFoxTests(BaseTest):
         assert status == "CLOSED"
 
         # delete the created status
+        agent_helper.priority_or_status_deleted_success_message_not_present()
         agent_helper.hover_to_options()
         agent_helper.select_statuses_option()
         agent_helper.select_status_by_name__or_check_status_name_in_status_list(status_name=data["status_Name"])
@@ -232,6 +231,7 @@ class HappyFoxTests(BaseTest):
         logging.info("Deleted the created Status")
 
         # delete the created priority
+        agent_helper.priority_or_status_deleted_success_message_not_present()
         agent_helper.hover_to_options()
         agent_helper.select_priorities_option()
         agent_helper.select_priority_by_name_or_check_priority_on_priority_page(priority_name=data["Priority_Name"])
@@ -246,3 +246,4 @@ class HappyFoxTests(BaseTest):
         agent_helper.staff_menu_drop_down()
         agent_helper.click_logout()
         logging.info("Logged out from the Agent portal")
+
